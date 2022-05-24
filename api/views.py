@@ -101,6 +101,7 @@ class ShopAPIView(APIView):
         shop = Shop.objects.all().filter(user_id= request.data["id"])
         serializer = ShopSerializer(shop, many = True)
         return Response(serializer.data)
+
     def post(self, request):
         serializer = ShopSerializer(data = request.data)
 
@@ -110,16 +111,16 @@ class ShopAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ShopProductAPIView(APIView):
-    def get(self, request):
-        product = Product.objects.all().filter(shop_id = request.data["id"])
+    def post(self, request, id):
+        product = Product.objects.all().filter(shop_id = id)
         serializer = ProductSerializer(product, many = True)
         return Response(serializer.data)
 
 class CartAPIView(APIView):
 
-    def get(self, request):
-        cart = Cart.objects.all().filter(user= request.data["id"])
-        serializer = CartSerializer(cart, many = True)
+    def get(self, request, id):
+        cart = Cart.objects.get(user= id)
+        serializer = CartSerializer(cart)
         return Response(serializer.data)
     def post(self, request):
         serializer = CartSerializer(data = request.data, many = True)

@@ -11,9 +11,9 @@ urlpatterns = [
 
     path('api/auth/createShop', ShopAPIView.as_view()),
 
-    path('shop/product', ShopProductAPIView.as_view()),
+    path('shop/product/<int:id>', ShopProductAPIView.as_view()),
 
-    path("api/cart", CartAPIView.as_view()), #tao, xem gio hang rong
+    path("api/cart/<int:id>", CartAPIView.as_view()), #tao, xem gio hang rong
 
     path('cart-item/create', CartItemCreateAPIView.as_view()),
     
